@@ -39,8 +39,14 @@ public class Portfolio {
 	@JsonIdentityReference(alwaysAsId = true)
 	private Set<Skill> skills;
 	
+	@OneToMany(mappedBy="portfolio", fetch = FetchType.LAZY)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true)
+	private Set<Interest> interests;
+	
 	public Portfolio() {
 		skills = new HashSet<>();
+		interests = new HashSet<>();
 	}
 
 	
@@ -92,7 +98,16 @@ public class Portfolio {
 	public void setSkills(Set<Skill> skills) {
 		this.skills = skills;
 	}
+
+
+	public Set<Interest> getInterests() {
+		return interests;
+	}
+
+
+	public void setInterests(Set<Interest> interests) {
+		this.interests = interests;
+	}
 	
-	
-	
+		
 }

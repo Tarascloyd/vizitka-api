@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.taras.vizitkaapi.entity.Interest;
 import com.taras.vizitkaapi.entity.Portfolio;
 import com.taras.vizitkaapi.entity.Skill;
+import com.taras.vizitkaapi.service.InterestService;
 import com.taras.vizitkaapi.service.PortfolioService;
 import com.taras.vizitkaapi.service.SkillService;
 
@@ -22,10 +24,13 @@ public class PortfolioController {
 	
 	private PortfolioService portfolioService;
 	private SkillService skillService;
-
-	public PortfolioController(PortfolioService portfolioService, SkillService skillService) {
+	private InterestService interestService;
+	
+	public PortfolioController(PortfolioService portfolioService, SkillService skillService,
+			InterestService interestService) {
 		this.portfolioService = portfolioService;
 		this.skillService = skillService;
+		this.interestService = interestService;
 	}
 
 	@GetMapping({"/", ""})
@@ -54,6 +59,17 @@ public class PortfolioController {
 		}
 		
 		return new ResponseEntity<Set<Skill>>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/interests")
+	public ResponseEntity<Set<Interest>> getInterestsByPortfolioId(@PathVariable("id") Long id) {
+		Set<Interest> result = interestService.findByPortfolioId(id);
+			
+		if (result.isEmpty()) {
+			return new ResponseEntity<Set<Interest>>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Set<Interest>>(result, HttpStatus.OK);
 	}
 	
 }
