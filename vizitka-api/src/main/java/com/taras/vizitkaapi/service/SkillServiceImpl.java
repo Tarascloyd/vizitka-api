@@ -58,5 +58,17 @@ public class SkillServiceImpl implements SkillService {
 	    Page<Skill> skills = skillRepository.findByPortfolio(portfolio.get(), pageable);
 	    return skills;
 	}
+	
+	@Override
+	@Transactional
+	public Page<Skill> findByPortfolioSearchSkillName(Long theId, String skillName, Pageable pageable) {
+		Optional<Portfolio> portfolio = portfolioRepository.findById(theId);
+		if (!portfolio.isPresent()) {
+			return Page.empty();
+		}
+	    Page<Skill> skills = skillRepository.findByPortfolioAndSkillNameContainsAllIgnoreCase(portfolio.get(), skillName, pageable);
+	    		
+	    return skills;
+	}
 
 }

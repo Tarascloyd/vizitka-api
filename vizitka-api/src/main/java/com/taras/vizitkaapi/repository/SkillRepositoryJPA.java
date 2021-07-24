@@ -11,4 +11,6 @@ import com.taras.vizitkaapi.entity.Skill;
 @Repository
 public interface SkillRepositoryJPA extends JpaRepository<Skill, Long> {
 	Page<Skill> findByPortfolio(Portfolio portfolio, Pageable pageable);
+	
+	Page<Skill> findByPortfolioAndSkillNameContainsAllIgnoreCase(Portfolio portfolio, String skillName, Pageable pageable);
 }

@@ -16,4 +16,6 @@ public interface SkillService {
 	public void  save(Skill theSkill);
 
 	public Page<Skill> findByPortfolioId(Long theId, Pageable pageable);
+
+	public Page<Skill> findByPortfolioSearchSkillName(Long theId, String skillName, Pageable pageable);
 }

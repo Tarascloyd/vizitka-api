@@ -1,4 +1,4 @@
-TRUNCATE TABLE skills, interests, portfolios RESTART IDENTITY CASCADE;
+-- TRUNCATE TABLE skills, interests, portfolios RESTART IDENTITY CASCADE;
 
 CREATE TABLE IF NOT EXISTS portfolios (
     id BIGSERIAL NOT NULL,
@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS skills (
     level SMALLINT NOT NULL,
     portfolio_id BIGINT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES portfolios (id)
+    FOREIGN KEY (portfolio_id) REFERENCES portfolios (id)
 );
 
 CREATE TABLE IF NOT EXISTS interests (
@@ -22,5 +22,5 @@ CREATE TABLE IF NOT EXISTS interests (
     interest_name VARCHAR(255) NOT NULL,
     portfolio_id BIGINT NOT NULL,
     PRIMARY KEY (id),
-    FOREIGN KEY (id) REFERENCES portfolios (id)
+    FOREIGN KEY (portfolio_id) REFERENCES portfolios (id)
 );

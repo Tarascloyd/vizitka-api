@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -56,6 +57,24 @@ public class PortfolioController {
 	public ResponseEntity<Page<Skill>> getSkillsByPortfolioId(@PathVariable("id") Long id, Pageable pageable) {
 		
 		Page<Skill> result = skillService.findByPortfolioId(id, pageable);
+		if (result.getContent().isEmpty()) {
+			return new ResponseEntity<Page<Skill>>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Page<Skill>>(result, HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/skills/search")
+	public ResponseEntity<Page<Skill>> getSkillsByPortfolioId(
+			@PathVariable("id") Long id,
+			@RequestParam("name") String name,
+			Pageable pageable) {
+		Page<Skill> result;
+		if (name.trim().isEmpty()) {
+			result = skillService.findByPortfolioId(id, pageable);
+		} else {
+			result = skillService.findByPortfolioSearchSkillName(id, name, pageable);
+		}
 		if (result.getContent().isEmpty()) {
 			return new ResponseEntity<Page<Skill>>(HttpStatus.NOT_FOUND);
 		}
