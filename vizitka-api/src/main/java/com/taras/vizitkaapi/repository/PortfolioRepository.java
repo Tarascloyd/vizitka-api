@@ -8,7 +8,7 @@ import com.taras.vizitkaapi.entity.Portfolio;
 public interface PortfolioRepository {
 	public List<Portfolio> findAll();
 	
-	public Optional<Portfolio> findById(long theId);
+	public Optional<Portfolio> findById(Long theId);
 	
 	public void save(Portfolio theUser);
 }

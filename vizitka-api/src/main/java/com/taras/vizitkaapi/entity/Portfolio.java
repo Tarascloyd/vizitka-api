@@ -1,11 +1,20 @@
 package com.taras.vizitkaapi.entity;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIdentityReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 @Entity
 @Table(name="portfolios")
@@ -23,19 +32,18 @@ public class Portfolio {
 	
 	@Column(name="home_city")
 	private String homeCity;
-	  
+	
+	
+	@OneToMany(mappedBy="portfolio", fetch = FetchType.LAZY)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
+	@JsonIdentityReference(alwaysAsId = true)
+	private Set<Skill> skills;
 	
 	public Portfolio() {
+		skills = new HashSet<>();
 	}
 
-
-	public Portfolio(String firstName, String lastName, String homeCity) {
-		this.firstName = firstName;
-		this.lastName = lastName;
-		this.homeCity = homeCity;
-	}
-
-
+	
 	public Long getId() {
 		return id;
 	}
@@ -74,6 +82,17 @@ public class Portfolio {
 	public void setHomeCity(String homeCity) {
 		this.homeCity = homeCity;
 	}
+
+
+	public Set<Skill> getSkills() {
+		return skills;
+	}
+
+
+	public void setSkills(Set<Skill> skills) {
+		this.skills = skills;
+	}
+	
 	
 	
 }

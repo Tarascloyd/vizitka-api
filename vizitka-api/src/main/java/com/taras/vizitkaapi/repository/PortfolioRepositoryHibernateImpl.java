@@ -22,7 +22,6 @@ public class PortfolioRepositoryHibernateImpl implements PortfolioRepository {
 
 	@Override
 	public List<Portfolio> findAll() {
-		
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query<Portfolio> theQuery = currentSession.createQuery("from Portfolio", Portfolio.class);
@@ -31,11 +30,10 @@ public class PortfolioRepositoryHibernateImpl implements PortfolioRepository {
 	}
 
 	@Override
-	public Optional<Portfolio> findById(long theId) {
-		
+	public Optional<Portfolio> findById(Long theId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
-		return currentSession.byId( Portfolio.class ).loadOptional( theId );
+		return currentSession.byId(Portfolio.class).loadOptional( theId );
 	}
 
 	@Override

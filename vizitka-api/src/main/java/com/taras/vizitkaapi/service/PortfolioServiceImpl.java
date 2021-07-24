@@ -30,7 +30,7 @@ public class PortfolioServiceImpl implements PortfolioService {
 
 	@Override
 	@Transactional
-	public Optional<Portfolio> findById(long theId) {
+	public Optional<Portfolio> findById(Long theId) {
 		
 		return portfolioRepository.findById(theId);
 	}

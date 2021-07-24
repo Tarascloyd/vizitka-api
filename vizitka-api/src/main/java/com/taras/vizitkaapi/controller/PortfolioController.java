@@ -1,6 +1,7 @@
 package com.taras.vizitkaapi.controller;
 
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,22 +12,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.taras.vizitkaapi.entity.Portfolio;
+import com.taras.vizitkaapi.entity.Skill;
 import com.taras.vizitkaapi.service.PortfolioService;
+import com.taras.vizitkaapi.service.SkillService;
 
 @RestController
 @RequestMapping("api/portfolios")
 public class PortfolioController {
 	
 	private PortfolioService portfolioService;
+	private SkillService skillService;
 
-	public PortfolioController(PortfolioService portfolioService) {
+	public PortfolioController(PortfolioService portfolioService, SkillService skillService) {
 		this.portfolioService = portfolioService;
-		Portfolio portfolio1 = new Portfolio("Taras", "Shetsov", "Novosibirsk");
-		Portfolio portfolio2 = new Portfolio("Victor", "Petrov", "Tomsk");
-		portfolioService.save(portfolio1);
-		portfolioService.save(portfolio2);
+		this.skillService = skillService;
 	}
-	
+
 	@GetMapping({"/", ""})
 	public @ResponseBody Iterable<Portfolio> getAllPortfolios() {
 	    
@@ -42,6 +43,17 @@ public class PortfolioController {
 		}
 		
 		return new ResponseEntity<Portfolio>(result.get(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/skills")
+	public ResponseEntity<Set<Skill>> getSkillsByPortfolioId(@PathVariable("id") Long id) {
+		Set<Skill> result = skillService.findByPortfolioId(id);
+			
+		if (result.isEmpty()) {
+			return new ResponseEntity<Set<Skill>>(HttpStatus.NOT_FOUND);
+		}
+		
+		return new ResponseEntity<Set<Skill>>(result, HttpStatus.OK);
 	}
 	
 }
