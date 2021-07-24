@@ -1,9 +1,10 @@
 package com.taras.vizitkaapi.service;
 
-import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,9 +28,9 @@ public class SkillServiceImpl implements SkillService {
 
 	@Override
 	@Transactional
-	public Set<Skill> findAll() {
+	public List<Skill> findAll() {
 		
-		return new HashSet<Skill>(skillRepository.findAll());
+		return skillRepository.findAll();
 	}
 
 	@Override
@@ -47,13 +48,15 @@ public class SkillServiceImpl implements SkillService {
 	}
 
 	@Override
-	public Set<Skill> findByPortfolioId(Long theId) {
+	@Transactional
+	public Page<Skill> findByPortfolioId(Long theId, Pageable pageable) {
 		Optional<Portfolio> portfolio = portfolioRepository.findById(theId);
 		if (!portfolio.isPresent()) {
-			return new HashSet<Skill>();
+			return Page.empty();
 		}
-		
-		return skillRepository.findByPortfolio(portfolio.get());
+
+	    Page<Skill> skills = skillRepository.findByPortfolio(portfolio.get(), pageable);
+	    return skills;
 	}
 
 }

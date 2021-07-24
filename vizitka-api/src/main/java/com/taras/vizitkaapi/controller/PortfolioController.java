@@ -3,6 +3,8 @@ package com.taras.vizitkaapi.controller;
 import java.util.Optional;
 import java.util.Set;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,14 +53,14 @@ public class PortfolioController {
 	}
 	
 	@GetMapping("/{id}/skills")
-	public ResponseEntity<Set<Skill>> getSkillsByPortfolioId(@PathVariable("id") Long id) {
-		Set<Skill> result = skillService.findByPortfolioId(id);
-			
-		if (result.isEmpty()) {
-			return new ResponseEntity<Set<Skill>>(HttpStatus.NOT_FOUND);
+	public ResponseEntity<Page<Skill>> getSkillsByPortfolioId(@PathVariable("id") Long id, Pageable pageable) {
+		
+		Page<Skill> result = skillService.findByPortfolioId(id, pageable);
+		if (result.getContent().isEmpty()) {
+			return new ResponseEntity<Page<Skill>>(HttpStatus.NOT_FOUND);
 		}
 		
-		return new ResponseEntity<Set<Skill>>(result, HttpStatus.OK);
+		return new ResponseEntity<Page<Skill>>(result, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{id}/interests")
