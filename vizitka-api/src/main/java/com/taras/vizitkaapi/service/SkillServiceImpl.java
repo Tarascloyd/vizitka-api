@@ -1,28 +1,35 @@
 package com.taras.vizitkaapi.service;
 
+import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.taras.vizitkaapi.entity.Portfolio;
 import com.taras.vizitkaapi.entity.Skill;
-import com.taras.vizitkaapi.repository.SkillRepository;
+import com.taras.vizitkaapi.repository.PortfolioRepositoryJPA;
+import com.taras.vizitkaapi.repository.SkillRepositoryJPA;
 
 @Service
 public class SkillServiceImpl implements SkillService {
 
-	private SkillRepository skillRepository;
+	private SkillRepositoryJPA skillRepository;
+	private PortfolioRepositoryJPA portfolioRepository;
 	
-	public SkillServiceImpl(SkillRepository skillRepository) {
+	
+
+	public SkillServiceImpl(SkillRepositoryJPA skillRepository, PortfolioRepositoryJPA portfolioRepository) {
 		this.skillRepository = skillRepository;
+		this.portfolioRepository = portfolioRepository;
 	}
 
 	@Override
 	@Transactional
 	public Set<Skill> findAll() {
 		
-		return skillRepository.findAll();
+		return new HashSet<Skill>(skillRepository.findAll());
 	}
 
 	@Override
@@ -41,8 +48,12 @@ public class SkillServiceImpl implements SkillService {
 
 	@Override
 	public Set<Skill> findByPortfolioId(Long theId) {
+		Optional<Portfolio> portfolio = portfolioRepository.findById(theId);
+		if (!portfolio.isPresent()) {
+			return new HashSet<Skill>();
+		}
 		
-		return skillRepository.findByPortfoloiId(theId);
+		return skillRepository.findByPortfolio(portfolio.get());
 	}
 
 }

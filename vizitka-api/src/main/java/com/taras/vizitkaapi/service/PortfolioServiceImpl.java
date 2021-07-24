@@ -7,17 +7,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.taras.vizitkaapi.entity.Portfolio;
-import com.taras.vizitkaapi.repository.PortfolioRepository;
+import com.taras.vizitkaapi.repository.PortfolioRepositoryJPA;
+
 
 @Service
 public class PortfolioServiceImpl implements PortfolioService {
 
 	
-	private PortfolioRepository portfolioRepository;
+	private PortfolioRepositoryJPA portfolioRepository;
 	
 	
 	
-	public PortfolioServiceImpl(PortfolioRepository portfolioRepository) {
+	public PortfolioServiceImpl(PortfolioRepositoryJPA portfolioRepository) {
 		this.portfolioRepository = portfolioRepository;
 	}
 

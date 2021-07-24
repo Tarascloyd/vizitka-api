@@ -1,4 +1,4 @@
-package com.taras.vizitkaapi.repository;
+package com.taras.vizitkaapi.repositoryHibernate;
 
 import java.util.Optional;
 import java.util.Set;
@@ -45,7 +45,7 @@ public class SkillRepositoryHibernateImpl implements SkillRepository {
 	}
 
 	@Override
-	public Set<Skill> findByPortfoloiId(Long theId) {
+	public Set<Skill> findByPortfolioId(Long theId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query<Skill> theQuery = currentSession.createNativeQuery(

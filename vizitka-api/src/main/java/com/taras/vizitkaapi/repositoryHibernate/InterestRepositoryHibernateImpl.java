@@ -1,4 +1,4 @@
-package com.taras.vizitkaapi.repository;
+package com.taras.vizitkaapi.repositoryHibernate;
 
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -21,7 +21,7 @@ public class InterestRepositoryHibernateImpl implements InterestRepository {
 	}
 
 	@Override
-	public Set<Interest> findByPortfoloiId(Long theId) {
+	public Set<Interest> findByPortfolioId(Long theId) {
 		Session currentSession = entityManager.unwrap(Session.class);
 		
 		Query<Interest> theQuery = currentSession.createNativeQuery(

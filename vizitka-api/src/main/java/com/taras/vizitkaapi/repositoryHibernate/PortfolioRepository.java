@@ -1,4 +1,4 @@
-package com.taras.vizitkaapi.repository;
+package com.taras.vizitkaapi.repositoryHibernate;
 
 import java.util.List;
 import java.util.Optional;

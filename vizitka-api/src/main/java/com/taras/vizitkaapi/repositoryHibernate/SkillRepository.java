@@ -1,4 +1,4 @@
-package com.taras.vizitkaapi.repository;
+package com.taras.vizitkaapi.repositoryHibernate;
 
 import java.util.Optional;
 import java.util.Set;
@@ -12,5 +12,5 @@ public interface SkillRepository {
 	
 	public void save(Skill theSkill);
 
-	public Set<Skill> findByPortfoloiId(Long theId);
+	public Set<Skill> findByPortfolioId(Long theId);
 }
