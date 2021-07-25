@@ -1,7 +1,7 @@
-INSERT INTO portfolios (first_name, last_name, home_city) VALUES 
-    ('Taras', 'Shvetsov', 'Novosibirsk'),
-    ('Mark', 'Berger', 'London'),
-    ('Ted', 'Parker', 'Deli')
+INSERT INTO portfolios (first_name, last_name, title, home_city) VALUES 
+    ('Taras', 'Shvetsov', 'Full Stack Developer', 'Novosibirsk'),
+    ('Mark', 'Berger', 'Java Developer', 'London'),
+    ('Ted', 'Parker', 'Full Stack Developer', 'Deli')
 ;
 
 INSERT INTO skills (skill_name, level, portfolio_id) VALUES 
@@ -13,7 +13,8 @@ INSERT INTO skills (skill_name, level, portfolio_id) VALUES
 ;
 
 INSERT INTO interests (interest_name, portfolio_id) VALUES 
-    ('Иностранные языки', 1),
-    ('Программирование', 1),
-    ('Путешествия', 1)
+    ('Languages', 1),
+    ('Coding', 1),
+    ('Fishing', 1),
+    ('Traveling', 1)
 ;

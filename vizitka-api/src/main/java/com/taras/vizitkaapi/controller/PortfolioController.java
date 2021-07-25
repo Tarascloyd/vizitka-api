@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,13 +36,13 @@ public class PortfolioController {
 		this.skillService = skillService;
 		this.interestService = interestService;
 	}
-
+	@CrossOrigin
 	@GetMapping({"/", ""})
 	public @ResponseBody Iterable<Portfolio> getAllPortfolios() {
 	    
 		return portfolioService.findAll();
 	}
-	
+	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Portfolio> getPortfolioById(@PathVariable("id") Long id) {
 		Optional<Portfolio> result = portfolioService.findById(id);
@@ -52,7 +53,7 @@ public class PortfolioController {
 		
 		return new ResponseEntity<Portfolio>(result.get(), HttpStatus.OK);
 	}
-	
+	@CrossOrigin
 	@GetMapping("/{id}/skills")
 	public ResponseEntity<Page<Skill>> getSkillsByPortfolioId(@PathVariable("id") Long id, Pageable pageable) {
 		
@@ -63,7 +64,7 @@ public class PortfolioController {
 		
 		return new ResponseEntity<Page<Skill>>(result, HttpStatus.OK);
 	}
-	
+	@CrossOrigin
 	@GetMapping("/{id}/skills/search")
 	public ResponseEntity<Page<Skill>> getSkillsByPortfolioId(
 			@PathVariable("id") Long id,
@@ -81,7 +82,7 @@ public class PortfolioController {
 		
 		return new ResponseEntity<Page<Skill>>(result, HttpStatus.OK);
 	}
-	
+	@CrossOrigin
 	@GetMapping("/{id}/interests")
 	public ResponseEntity<Set<Interest>> getInterestsByPortfolioId(@PathVariable("id") Long id) {
 		Set<Interest> result = interestService.findByPortfolioId(id);

@@ -30,6 +30,9 @@ public class Portfolio {
 	@Column(name="last_name")
 	private String lastName;
 	
+	@Column(name="title")
+	private String title;
+	
 	@Column(name="home_city")
 	private String homeCity;
 	
@@ -108,6 +111,14 @@ public class Portfolio {
 	public void setInterests(Set<Interest> interests) {
 		this.interests = interests;
 	}
-	
-		
+
+
+	public String getTitle() {
+		return title;
+	}
+
+
+	public void setTitle(String title) {
+		this.title = title;
+	}
 }
